@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Jumanji</string>
+
+    <string name="card_text_a">Vali, kes joob</string>
+    <string name="card_text_2">Vali keegi ja jooge koos põhjani</string>
+    <string name="card_text_3">Hüüdnimi (See, kes ütleb vana nime, joob)</string>
+    <string name="card_text_4">Sõrmekunn</string>
+    <string name="card_text_5">Jaga viis lonksu</string>
+    <string name="card_text_6">Reegel</string>
+    <string name="card_text_7">Ise jood</string>
+    <string name="card_text_8">Kosk</string>
+    <string name="card_text_9">Lõuakunn</string>
+    <string name="card_text_10">Küsimustekunn</string>
+    <string name="card_text_j">Isased joovad</string>
+    <string name="card_text_q">Emased joovad</string>
+    <string name="card_text_k">Kokteil</string>
+
+    <string name="start_text">MÄNGU ALUSTAMISEKS VAJUTA KAARTI</string>
+    <string name="end_text">MÄNG LÄBI</string>
+</resources>
