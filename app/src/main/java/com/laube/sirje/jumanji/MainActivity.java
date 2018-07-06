@@ -1,4 +1,4 @@
-package com.example.android.jumanji;
+package com.laube.sirje.jumanji;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.android.jumanji.utils.CardUtils;
+import com.laube.sirje.jumanji.utils.CardUtils;
 
 import java.util.ArrayList;
 import java.util.Random;

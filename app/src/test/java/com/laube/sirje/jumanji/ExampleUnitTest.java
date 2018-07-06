@@ -1,4 +1,4 @@
-package com.example.android.jumanji;
+package com.laube.sirje.jumanji;
 
 import org.junit.Test;
 

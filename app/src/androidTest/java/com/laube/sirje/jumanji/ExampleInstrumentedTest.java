@@ -1,4 +1,4 @@
-package com.example.android.jumanji;
+package com.laube.sirje.jumanji;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

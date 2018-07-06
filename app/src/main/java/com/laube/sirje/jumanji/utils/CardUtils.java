@@ -1,7 +1,7 @@
-package com.example.android.jumanji.utils;
+package com.laube.sirje.jumanji.utils;
 
-import com.example.android.jumanji.Card;
-import com.example.android.jumanji.R;
+import com.laube.sirje.jumanji.Card;
+import com.laube.sirje.jumanji.R;
 
 import java.util.Arrays;
 import java.util.List;
