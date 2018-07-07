@@ -1,7 +1,12 @@
 package com.laube.sirje.jumanji;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +46,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cardStack.setOnClickListener(this);
     }
 
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -64,7 +75,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (remainingCardPool.isEmpty()) {
             cardStack.setImageResource(R.drawable.gray_back);
             cardText.setText(R.string.end_text);
-            remainingCardPool.addAll(CardUtils.getAllCards());
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Mäng läbi!");
+            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    remainingCardPool.addAll(CardUtils.getAllCards());
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+            });
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
         }
+    }
+    @Override
+    public void onBackPressed() {
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
     }
 }

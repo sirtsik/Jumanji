@@ -15,6 +15,25 @@
     <string name="card_text_q">Emased joovad</string>
     <string name="card_text_k">Kokteil</string>
 
+    <string name="long_rules_a"><b>Äss</b> - Vali mängija, kes võtab lonksu.</string>
+    <string name="long_rules_2"><b>2</b> - Vali mängija, kellega koos joote oma joogid lõpuni.</string>
+    <string name="long_rules_3"><b>3</b> - Vali mängija, kellele paned hüüdnime. Kes kasutab edaspidi selle mängija vana nime, võtab lonksu.</string>
+    <string name="long_rules_4"><b>4</b> - Sõrmekunn. Võid (üks kord) ükskõik, millisel hetkel  sõrmed lauale panna. Kõik, kes märkavad, peavad eeskuju järgima. Kes viimasena märkab, peab lonksu võtma. </string>
+    <string name="long_rules_5"><b>5</b> - Jaga viis lonksu kuni viie mängija vahel.</string>
+    <string name="long_rules_6"><b>6</b> - Reegel. Mõtle välja reegel. Kes reegli vastu eksib, peab lonksu võtma.</string>
+    <string name="long_rules_7"><b>7</b> - Võta lonks.</string>
+    <string name="long_rules_8"><b>8</b> - Kosk. Juuakse koos ringis. Vali, üks oma naabritest, kes lõpetab viimasena. Sina lõpetad esimesena. Mängijad lõpetavad järjest joomise (tekib ahel).</string> <!-- ToDo Mõtle hea sõnastus välja. -->
+    <string name="long_rules_9"><b>9</b> - Lõuakunn. Võid iga hetk oma lõuast kinni võtta. Kõik, kes märkavad, peavad eeskuju järgima. Kes viimasena märkab, peab lonksu võtma. Lõuakunn vahetub, kui tõmmatakse järgmine 9.</string>
+    <string name="long_rules_10"><b>10</b> - Küsimustekunn. Võid iga hetk üks kõik millise küsimuse esitada. Kes sellele küsimusele vastab, peab lonksu võtma. Küsimustekunn vahetub, kui tõmmatakse järgmine 10.</string>
+    <string name="long_rules_j"><b>Poiss</b> - Kõik mehed võtavad lonksu.</string>
+    <string name="long_rules_q"><b>Emand</b> - Kõik naised võtavad lonksu.</string>
+    <string name="long_rules_k"><b>Kuningas</b> - Kokteil. Ringi keskele pannakse tops. Iga kuninga kaardi tõmbaja valab lonksujagu oma joogist topsi. Viimase kuninga tõmbaja joob tekkinud kokteili ära.</string>
+
     <string name="start_text">MÄNGU ALUSTAMISEKS VAJUTA KAARTI</string>
     <string name="end_text">MÄNG LÄBI</string>
+    <string name="btn_start_game">Alusta mängu</string>
+    <string name="btn_rules">Reeglid</string>
+
+    <string name="ok">Alusta uut mängu</string>
+    <string name="cancel">Sulge</string>
 </resources>
