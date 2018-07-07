@@ -3,10 +3,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/action_refresh"
+        android:id="@+id/action_info"
         android:orderInCategory="100"
         android:icon="@drawable/information_outline"
-        android:iconTint="@android:color/white"
         android:title="Refresh"
         app:showAsAction="always" />
 

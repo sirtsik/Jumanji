@@ -31,9 +31,13 @@
 
     <string name="start_text">MÄNGU ALUSTAMISEKS VAJUTA KAARTI</string>
     <string name="end_text">MÄNG LÄBI</string>
+    <string name="btn_start_new_game">Alusta uut mängu</string>
     <string name="btn_start_game">Alusta mängu</string>
     <string name="btn_rules">Reeglid</string>
 
     <string name="ok">Alusta uut mängu</string>
     <string name="cancel">Sulge</string>
+
+    <string name="add_player">Lisa mängija</string>
+
 </resources>

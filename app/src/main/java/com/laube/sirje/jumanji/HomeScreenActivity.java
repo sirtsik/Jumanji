@@ -8,7 +8,7 @@ import android.widget.Button;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button startGame;
+    Button startNewGame;
     Button showRules;
 
     @Override
@@ -16,16 +16,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
-        startGame = findViewById(R.id.btn_start_game);
+        startNewGame = findViewById(R.id.btn_start_game);
         showRules = findViewById(R.id.btn_show_rules);
-        startGame.setOnClickListener(this);
+        startNewGame.setOnClickListener(this);
         showRules.setOnClickListener(this);
 
-    }
-    public void startGame()
-    {
-        Intent intent = new Intent(HomeScreenActivity.this, MainActivity.class);
-        startActivity(intent);
     }
 
     public void showRules()
@@ -34,10 +29,16 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         startActivity(intent);
     }
 
+    public void startNewGame()
+    {
+        Intent intent = new Intent(HomeScreenActivity.this, PlayersActivity.class);
+        startActivity(intent);
+    }
+
     @Override
     public void onClick(View view) {
         if(view.getId() == R.id.btn_start_game) {
-            startGame();
+            startNewGame();
         }
         else if(view.getId() == R.id.btn_show_rules) {
             showRules();
