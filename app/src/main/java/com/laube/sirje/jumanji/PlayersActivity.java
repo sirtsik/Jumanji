@@ -24,11 +24,12 @@ import java.util.List;
 import java.util.Random;
 
 public class PlayersActivity extends AppCompatActivity implements View.OnClickListener {
-    ListView listView ;
+    ListView listView;
     FloatingActionButton addPlayer;
     EditText playerNameField;
     Button startGame;
-    ArrayList<String> names = new ArrayList<String>(){};
+    ArrayList<String> names = new ArrayList<String>() {
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,15 +49,15 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         listView.setAdapter(adapter);
 
     }
-        public void startGame()
-    {
+
+    public void startGame() {
         Intent intent = new Intent(PlayersActivity.this, MainActivity.class);
         startActivity(intent);
     }
 
     public void onClick(View view) {
         if (view.getId() == R.id.add_player) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
             playerNameField = new EditText(this);
             playerNameField.setSingleLine();
             builder.setMessage("Lisa mängija");
@@ -64,39 +65,43 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
             builder.setPositiveButton(R.string.add_player, new DialogInterface.OnClickListener() {
 
                 public void onClick(final DialogInterface dialog, int id) {
+                    ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                     playerNameField.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                            ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
                         }
 
                         @Override
                         public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            if (playerNameField.getText().toString() != "" && playerNameField.getText().toString() != null) {
+                                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
+                            } else {
+                                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
+                            }
                         }
 
                         @Override
                         public void afterTextChanged(Editable s) {
-                            ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                            String playerName = playerNameField.getText().toString();
-                            names.add(playerName);
                         }
                     });
-//                    if (playerName == "" || playerName == null) {
-//
-//                    }
-//                    else {
-//                        ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-//                        names.add(playerName);
-//                    }
+                    builder.setPositiveButton(R.string.add_player, new DialogInterface.OnClickListener() {
+                        public void onClick(final DialogInterface dialog, int id) {
+                            String playerName = playerNameField.getText().toString();
+
+                            if (playerName != "" && playerName != null) {
+                                names.add(playerName);
+                            }
+                        }
+                    });
+
+                    dialog = builder.create();
+                    dialog.show();
+
                 }
             });
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
         }
-        else if (view.getId() == R.id.btn_start_game) {
+        else if(view.getId()==R.id.btn_start_game) {
             startGame();
         }
     }
-
 }
