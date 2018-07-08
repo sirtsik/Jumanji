@@ -39,7 +39,7 @@
     <string name="cancel">Sulge</string>
 
     <string name="add_player">Lisa mängija</string>
-    <string name="next_player_name">JÄRGMINE MÄNGIJA: %1$s</string>
-    <string name="current_player">PRAEGUNE MÄNGIJA: %1$s</string>
+    <string name="next_player_name">Järgmine: %1$s</string>
+    <string name="current_player">%1$s :</string>
 
 </resources>

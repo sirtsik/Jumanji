@@ -46,9 +46,6 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         addPlayer.setOnClickListener(this);
         startGame.setOnClickListener(this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, android.R.id.text1, names);
-
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, names);
         listView.setAdapter(adapter);
 

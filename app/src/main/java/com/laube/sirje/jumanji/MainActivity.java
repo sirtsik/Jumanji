@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         if (remainingCardPool.isEmpty()) {
             cardText.setText(R.string.end_text);
-            displayCurrentPlayer.setVisibility(View.INVISIBLE);
             displayNextPlayer.setVisibility(View.INVISIBLE);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -106,9 +105,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             builder.setPositiveButton(R.string.btn_start_new_game, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     finish();
-//                    remainingCardPool.addAll(CardUtils.getAllCards());
-//                    Intent intent = new Intent(MainActivity.this, PlayersActivity.class);
-//                    startActivity(intent);
                 }
             });
 

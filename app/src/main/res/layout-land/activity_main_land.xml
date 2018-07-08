@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="3">
+
+    <ImageView
+        android:id="@+id/card_stack"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="CardStack"
+        android:src="@drawable/gray_back" />
+
+    <LinearLayout
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingRight="8dp"
+        android:weightSum="3">
+        <TextView
+            android:id="@+id/current_player"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:layout_weight="1"
+            android:text="@string/current_player"
+            android:textColor="@android:color/holo_red_light"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Title" />
+
+        <TextView
+            android:id="@+id/card_text"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:layout_marginBottom="16dp"
+            android:gravity="center"
+            android:text="@string/start_text"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large" />
+
+        <TextView
+            android:id="@+id/next_player"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="@string/next_player_name"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+
+
+</LinearLayout>
