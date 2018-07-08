@@ -23,6 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private static final String KEY_REMAINING_CARD_POOL = "remainingCardPool";
     public static final String KEY_CURRENT_CARD = "currentCard";
+    public static final String KEY_CURRENT_PLAYER = "currentPlayer";
+//    public static final String KEY_NEXT_PLAYER = "nextPlayer";
 
     ImageView cardStack;
     TextView cardText;
@@ -47,10 +49,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (savedInstanceState == null) {
             remainingCardPool.addAll(CardUtils.getAllCards());
+            displayCurrentPlayer.setVisibility(View.INVISIBLE);
         } else {
+            displayCurrentPlayer.setVisibility(View.VISIBLE);
+            displayCurrentPlayer.setText(savedInstanceState.getString(KEY_CURRENT_PLAYER));
             ArrayList<Card> parcelableArrayList = savedInstanceState.getParcelableArrayList(KEY_REMAINING_CARD_POOL);
             remainingCardPool.addAll(parcelableArrayList);
             currentCard = savedInstanceState.getParcelable(KEY_CURRENT_CARD);
+            currentPlayerName = savedInstanceState.getString(KEY_CURRENT_PLAYER);
             updateCardUI();
         }
 
@@ -87,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         outState.putParcelableArrayList(KEY_REMAINING_CARD_POOL, remainingCardPool);
         outState.putParcelable(KEY_CURRENT_CARD, currentCard);
+        outState.putString(KEY_CURRENT_PLAYER, currentPlayerName);
     }
 
     public void updateCardUI() {
