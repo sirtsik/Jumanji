@@ -35,9 +35,11 @@
     <string name="btn_start_game">Alusta mängu</string>
     <string name="btn_rules">Reeglid</string>
 
-    <string name="ok">Alusta uut mängu</string>
+    <string name="ok">OK</string>
     <string name="cancel">Sulge</string>
 
     <string name="add_player">Lisa mängija</string>
+    <string name="next_player_name">JÄRGMINE MÄNGIJA: %1$s</string>
+    <string name="current_player">PRAEGUNE MÄNGIJA: %1$s</string>
 
 </resources>

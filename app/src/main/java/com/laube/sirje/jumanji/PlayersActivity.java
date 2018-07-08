@@ -28,7 +28,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     FloatingActionButton addPlayer;
     EditText playerNameField;
     Button startGame;
-    ArrayList<String> names = new ArrayList<String>() {
+    public static ArrayList<String> names = new ArrayList<String>() {
     };
 
     @Override
@@ -57,51 +57,40 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
 
     public void onClick(View view) {
         if (view.getId() == R.id.add_player) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
             playerNameField = new EditText(this);
             playerNameField.setSingleLine();
             builder.setMessage("Lisa mängija");
             builder.setView(playerNameField);
+
             builder.setPositiveButton(R.string.add_player, new DialogInterface.OnClickListener() {
-
                 public void onClick(final DialogInterface dialog, int id) {
-                    ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                    playerNameField.addTextChangedListener(new TextWatcher() {
-                        @Override
-                        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                        }
+                    String playerName = playerNameField.getText().toString();
 
-                        @Override
-                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                            if (playerNameField.getText().toString() != "" && playerNameField.getText().toString() != null) {
-                                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(true);
-                            } else {
-                                ((AlertDialog) dialog).getButton(AlertDialog.BUTTON_POSITIVE).setEnabled(false);
-                            }
-                        }
-
-                        @Override
-                        public void afterTextChanged(Editable s) {
-                        }
-                    });
-                    builder.setPositiveButton(R.string.add_player, new DialogInterface.OnClickListener() {
-                        public void onClick(final DialogInterface dialog, int id) {
-                            String playerName = playerNameField.getText().toString();
-
-                            if (playerName != "" && playerName != null) {
-                                names.add(playerName);
-                            }
-                        }
-                    });
-
-                    dialog = builder.create();
-                    dialog.show();
-
+                    if (!playerName.equals("")) {
+                        names.add(playerName);
+                    }
                 }
             });
-        }
-        else if(view.getId()==R.id.btn_start_game) {
-            startGame();
+
+            builder.create().show();
+        } else if (view.getId() == R.id.btn_start_game) {
+            if (names.size() >= 2) {
+                startGame();
+            }
+            else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                playerNameField = new EditText(this);
+                playerNameField.setSingleLine();
+                builder.setMessage("Mängu alustamiseks on vaja vähemalt kahte mängijat.");
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, int id) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+            }
         }
     }
+
 }

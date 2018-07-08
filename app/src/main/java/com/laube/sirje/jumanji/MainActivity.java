@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +18,9 @@ import com.laube.sirje.jumanji.utils.CardUtils;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static com.laube.sirje.jumanji.PlayersActivity.names;
+import static java.sql.DriverManager.println;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String KEY_REMAINING_CARD_POOL = "remainingCardPool";
@@ -24,8 +28,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     ImageView cardStack;
     TextView cardText;
+    TextView displayNextPlayer;
+    TextView displayCurrentPlayer;
+    String currentPlayerName;
+    String nextPlayerName;
     Card currentCard;
     ArrayList<Card> remainingCardPool = new ArrayList<>();
+    ArrayList<String> playerNames = names;
+    Integer playerIndex = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cardStack = findViewById(R.id.card_stack);
         cardText = findViewById(R.id.card_text);
+        displayNextPlayer = findViewById(R.id.next_player);
+        displayCurrentPlayer = findViewById(R.id.current_player);
 
         if (savedInstanceState == null) {
             remainingCardPool.addAll(CardUtils.getAllCards());
@@ -45,6 +57,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         cardStack.setOnClickListener(this);
+
+        displayCurrentPlayer.setVisibility(View.INVISIBLE);
+        nextPlayerName = playerNames.get(playerIndex);
+        displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+        playerIndex += 1;
+        playerIndex = playerIndex % playerNames.size();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,19 +100,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Random r = new Random();
         int currentCardId = (r.nextInt(remainingCardPool.size()));
         currentCard = remainingCardPool.get(currentCardId);
+        displayCurrentPlayer.setVisibility(View.VISIBLE);
+        if(playerIndex < playerNames.size()) {
+            if( playerIndex == 0) {
+                nextPlayerName = playerNames.get(playerIndex);
+                displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+                currentPlayerName = playerNames.get(playerNames.size()-1);
+                displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
+                playerIndex += 1;
+                playerIndex = playerIndex % playerNames.size();
+            } else {
+                nextPlayerName = playerNames.get(playerIndex);
+                currentPlayerName = playerNames.get(playerIndex - 1);
+                displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+                displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
+                playerIndex += 1;
+                playerIndex = playerIndex % playerNames.size();
+            }
+        } else {
+            playerIndex = 0;
+            nextPlayerName = playerNames.get(playerIndex);
+            displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+            currentPlayerName = playerNames.get(playerNames.size()-1);
+            displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
+            playerIndex += 1;
+            playerIndex = playerIndex % playerNames.size();
+        }
+
+
+
         updateCardUI();
         remainingCardPool.remove(currentCard);
         if (remainingCardPool.isEmpty()) {
-            cardStack.setImageResource(R.drawable.gray_back);
+//            cardStack.setImageResource(R.drawable.gray_back);
             cardText.setText(R.string.end_text);
+            displayCurrentPlayer.setVisibility(View.INVISIBLE);
+            displayNextPlayer.setVisibility(View.INVISIBLE);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Mäng läbi!");
-            builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.btn_start_new_game, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
                     remainingCardPool.addAll(CardUtils.getAllCards());
-                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    Intent intent = new Intent(MainActivity.this, PlayersActivity.class);
                     startActivity(intent);
+                    names.clear();
                 }
             });
 
