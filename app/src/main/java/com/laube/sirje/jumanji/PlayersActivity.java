@@ -10,6 +10,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,8 +29,10 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     FloatingActionButton addPlayer;
     EditText playerNameField;
     Button startGame;
-    public static ArrayList<String> names = new ArrayList<String>() {
+    public static final String KEY_PLAYER_NAMES = "playerName";
+    private ArrayList<String> names = new ArrayList<String>() {
     };
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,13 +49,18 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, names);
 
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, names);
         listView.setAdapter(adapter);
 
     }
 
     public void startGame() {
         Intent intent = new Intent(PlayersActivity.this, MainActivity.class);
+        intent.putStringArrayListExtra(KEY_PLAYER_NAMES, names);
         startActivity(intent);
+        names.clear();
+        adapter.notifyDataSetChanged();
+
     }
 
     public void onClick(View view) {

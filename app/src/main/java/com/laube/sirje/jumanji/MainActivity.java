@@ -17,8 +17,6 @@ import com.laube.sirje.jumanji.utils.CardUtils;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import static com.laube.sirje.jumanji.PlayersActivity.names;
 import static java.sql.DriverManager.println;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -34,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String nextPlayerName;
     Card currentCard;
     ArrayList<Card> remainingCardPool = new ArrayList<>();
-    ArrayList<String> playerNames = names;
     Integer playerIndex = 0;
+    ArrayList<String> playerNames;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         cardStack.setOnClickListener(this);
 
+        playerNames = getIntent().getStringArrayListExtra(PlayersActivity.KEY_PLAYER_NAMES);
         displayCurrentPlayer.setVisibility(View.INVISIBLE);
         nextPlayerName = playerNames.get(playerIndex);
         displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
@@ -97,42 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Random r = new Random();
-        int currentCardId = (r.nextInt(remainingCardPool.size()));
-        currentCard = remainingCardPool.get(currentCardId);
-        displayCurrentPlayer.setVisibility(View.VISIBLE);
-        if(playerIndex < playerNames.size()) {
-            if( playerIndex == 0) {
-                nextPlayerName = playerNames.get(playerIndex);
-                displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
-                currentPlayerName = playerNames.get(playerNames.size()-1);
-                displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
-                playerIndex += 1;
-                playerIndex = playerIndex % playerNames.size();
-            } else {
-                nextPlayerName = playerNames.get(playerIndex);
-                currentPlayerName = playerNames.get(playerIndex - 1);
-                displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
-                displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
-                playerIndex += 1;
-                playerIndex = playerIndex % playerNames.size();
-            }
-        } else {
-            playerIndex = 0;
-            nextPlayerName = playerNames.get(playerIndex);
-            displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
-            currentPlayerName = playerNames.get(playerNames.size()-1);
-            displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
-            playerIndex += 1;
-            playerIndex = playerIndex % playerNames.size();
-        }
-
-
-
-        updateCardUI();
-        remainingCardPool.remove(currentCard);
         if (remainingCardPool.isEmpty()) {
-//            cardStack.setImageResource(R.drawable.gray_back);
             cardText.setText(R.string.end_text);
             displayCurrentPlayer.setVisibility(View.INVISIBLE);
             displayNextPlayer.setVisibility(View.INVISIBLE);
@@ -141,16 +105,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             builder.setMessage("Mäng läbi!");
             builder.setPositiveButton(R.string.btn_start_new_game, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int id) {
-                    remainingCardPool.addAll(CardUtils.getAllCards());
-                    Intent intent = new Intent(MainActivity.this, PlayersActivity.class);
-                    startActivity(intent);
-                    names.clear();
+                    finish();
+//                    remainingCardPool.addAll(CardUtils.getAllCards());
+//                    Intent intent = new Intent(MainActivity.this, PlayersActivity.class);
+//                    startActivity(intent);
                 }
             });
 
             AlertDialog dialog = builder.create();
             dialog.show();
 
+        }
+        else {
+            Random r = new Random();
+            int currentCardId = (r.nextInt(remainingCardPool.size()));
+            currentCard = remainingCardPool.get(currentCardId);
+            remainingCardPool.remove(currentCard);
+            displayCurrentPlayer.setVisibility(View.VISIBLE);
+            if(playerIndex < playerNames.size()) {
+                if( playerIndex == 0) {
+                    nextPlayerName = playerNames.get(playerIndex);
+                    displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+                    currentPlayerName = playerNames.get(playerNames.size()-1);
+                    displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
+                    playerIndex += 1;
+                    playerIndex = playerIndex % playerNames.size();
+                } else {
+                    nextPlayerName = playerNames.get(playerIndex);
+                    currentPlayerName = playerNames.get(playerIndex - 1);
+                    displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+                    displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
+                    playerIndex += 1;
+                    playerIndex = playerIndex % playerNames.size();
+                }
+            } else {
+                playerIndex = 0;
+                nextPlayerName = playerNames.get(playerIndex);
+                displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+                currentPlayerName = playerNames.get(playerNames.size()-1);
+                displayCurrentPlayer.setText(String.format(getString(R.string.current_player), currentPlayerName));
+                playerIndex += 1;
+                playerIndex = playerIndex % playerNames.size();
+            }
+            updateCardUI();
         }
     }
     @Override
