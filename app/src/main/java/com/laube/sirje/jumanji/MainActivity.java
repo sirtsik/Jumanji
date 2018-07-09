@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         playerNames = getIntent().getStringArrayListExtra(PlayersActivity.KEY_PLAYER_NAMES);
         nextPlayerName = playerNames.get(playerIndex);
-        displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+
         playerIndex += 1;
         playerIndex = playerIndex % playerNames.size();
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             updateCardUI();
         }
-
+        displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
         cardStack.setOnClickListener(this);
     }
 

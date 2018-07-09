@@ -67,6 +67,25 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         outState.putStringArrayList(KEY_PLAYER_LIST, names);
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Kas soovid katkestada mängijate lisamise? Valides 'jah\" kustuvad kõik lisatud mängijate nimed.");
+        builder.setPositiveButton("Jah", new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, int id) {
+                finish();
+            }
+        });
+        builder.setNegativeButton("Ei", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
     public void startGame() {
         Intent intent = new Intent(PlayersActivity.this, MainActivity.class);
         intent.putStringArrayListExtra(KEY_PLAYER_NAMES, names);
@@ -90,6 +109,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
 
                     if (!playerName.equals("")) {
                         names.add(playerName);
+                        adapter.notifyDataSetChanged();
                     }
                 }
             });
