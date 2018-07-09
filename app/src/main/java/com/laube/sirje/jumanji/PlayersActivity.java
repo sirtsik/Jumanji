@@ -43,19 +43,20 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         addPlayer = (FloatingActionButton) findViewById(R.id.add_player);
         startGame = (Button) findViewById(R.id.btn_start_game);
 
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, names);
+        listView.setAdapter(adapter);
+
         if (savedInstanceState == null){
 
         }
         else {
             ArrayList<String> stringArrayList = savedInstanceState.getStringArrayList(KEY_PLAYER_LIST);
             names.addAll(stringArrayList);
+
         }
 
         addPlayer.setOnClickListener(this);
         startGame.setOnClickListener(this);
-
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, names);
-        listView.setAdapter(adapter);
 
     }
 
