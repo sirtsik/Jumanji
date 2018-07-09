@@ -24,7 +24,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String KEY_REMAINING_CARD_POOL = "remainingCardPool";
     public static final String KEY_CURRENT_CARD = "currentCard";
     public static final String KEY_CURRENT_PLAYER = "currentPlayer";
-//    public static final String KEY_NEXT_PLAYER = "nextPlayer";
+    public static final String KEY_PLAYER_INDEX = "playerIndex";
+    public static final String KEY_WTF = "WTF";
+    public static final String KEY_NEXT_PLAYER = "nextPlayer";
 
     ImageView cardStack;
     TextView cardText;
@@ -47,27 +49,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         displayNextPlayer = findViewById(R.id.next_player);
         displayCurrentPlayer = findViewById(R.id.current_player);
 
+        playerNames = getIntent().getStringArrayListExtra(PlayersActivity.KEY_PLAYER_NAMES);
+        nextPlayerName = playerNames.get(playerIndex);
+        displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
+        playerIndex += 1;
+        playerIndex = playerIndex % playerNames.size();
+
         if (savedInstanceState == null) {
             remainingCardPool.addAll(CardUtils.getAllCards());
             displayCurrentPlayer.setVisibility(View.INVISIBLE);
         } else {
             displayCurrentPlayer.setVisibility(View.VISIBLE);
-            displayCurrentPlayer.setText(savedInstanceState.getString(KEY_CURRENT_PLAYER));
+            playerIndex = savedInstanceState.getInt(KEY_PLAYER_INDEX);
+            currentPlayerName = savedInstanceState.getString(KEY_CURRENT_PLAYER);
+            nextPlayerName = savedInstanceState.getString(KEY_NEXT_PLAYER);
+//            displayCurrentPlayer.setText(savedInstanceState.getString(KEY_CURRENT_PLAYER));
+            displayCurrentPlayer.setText(String.format(getString(R.string.current_player), savedInstanceState.getString(KEY_CURRENT_PLAYER)));
+            displayNextPlayer.setText(savedInstanceState.getString(KEY_NEXT_PLAYER));
             ArrayList<Card> parcelableArrayList = savedInstanceState.getParcelableArrayList(KEY_REMAINING_CARD_POOL);
             remainingCardPool.addAll(parcelableArrayList);
             currentCard = savedInstanceState.getParcelable(KEY_CURRENT_CARD);
-            currentPlayerName = savedInstanceState.getString(KEY_CURRENT_PLAYER);
+
             updateCardUI();
         }
 
         cardStack.setOnClickListener(this);
-
-        playerNames = getIntent().getStringArrayListExtra(PlayersActivity.KEY_PLAYER_NAMES);
-        displayCurrentPlayer.setVisibility(View.INVISIBLE);
-        nextPlayerName = playerNames.get(playerIndex);
-        displayNextPlayer.setText(String.format(getString(R.string.next_player_name), nextPlayerName));
-        playerIndex += 1;
-        playerIndex = playerIndex % playerNames.size();
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -94,6 +100,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         outState.putParcelableArrayList(KEY_REMAINING_CARD_POOL, remainingCardPool);
         outState.putParcelable(KEY_CURRENT_CARD, currentCard);
         outState.putString(KEY_CURRENT_PLAYER, currentPlayerName);
+        outState.putString(KEY_NEXT_PLAYER, nextPlayerName);
+        outState.putInt(KEY_PLAYER_INDEX, playerIndex);
     }
 
     public void updateCardUI() {
@@ -104,7 +112,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (remainingCardPool.isEmpty()) {
-            cardText.setText(R.string.end_text);
             displayNextPlayer.setVisibility(View.INVISIBLE);
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);

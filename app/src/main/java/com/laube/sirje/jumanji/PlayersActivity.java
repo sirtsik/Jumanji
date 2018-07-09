@@ -25,13 +25,13 @@ import java.util.List;
 import java.util.Random;
 
 public class PlayersActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String KEY_PLAYER_LIST = "playerList";
     ListView listView;
     FloatingActionButton addPlayer;
     EditText playerNameField;
     Button startGame;
     public static final String KEY_PLAYER_NAMES = "playerName";
-    private ArrayList<String> names = new ArrayList<String>() {
-    };
+    private ArrayList<String> names = new ArrayList<String>() {};
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -43,12 +43,27 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
         addPlayer = (FloatingActionButton) findViewById(R.id.add_player);
         startGame = (Button) findViewById(R.id.btn_start_game);
 
+        if (savedInstanceState == null){
+
+        }
+        else {
+            ArrayList<String> parcelableArrayList = savedInstanceState.getParcelableArrayList(KEY_PLAYER_LIST);
+            names.addAll(parcelableArrayList);
+        }
+
         addPlayer.setOnClickListener(this);
         startGame.setOnClickListener(this);
 
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, android.R.id.text1, names);
         listView.setAdapter(adapter);
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelableArrayList(KEY_PLAYER_LIST, names);
     }
 
     public void startGame() {
