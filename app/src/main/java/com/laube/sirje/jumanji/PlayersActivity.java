@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Random;
 
 public class PlayersActivity extends AppCompatActivity implements View.OnClickListener {
-    public static final String KEY_PLAYER_LIST = "playerList";
+    private static final String KEY_PLAYER_LIST = "playerList";
     ListView listView;
     FloatingActionButton addPlayer;
     EditText playerNameField;
@@ -47,8 +47,8 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
 
         }
         else {
-            ArrayList<String> parcelableArrayList = savedInstanceState.getParcelableArrayList(KEY_PLAYER_LIST);
-            names.addAll(parcelableArrayList);
+            ArrayList<String> stringArrayList = savedInstanceState.getStringArrayList(KEY_PLAYER_LIST);
+            names.addAll(stringArrayList);
         }
 
         addPlayer.setOnClickListener(this);
@@ -63,7 +63,7 @@ public class PlayersActivity extends AppCompatActivity implements View.OnClickLi
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        outState.putParcelableArrayList(KEY_PLAYER_LIST, names);
+        outState.putStringArrayList(KEY_PLAYER_LIST, names);
     }
 
     public void startGame() {
